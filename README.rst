@@ -12,7 +12,7 @@ You will:
 
 * Build a a realtime `Flow <http://docs.cask.co/cdap/current/en/dev-guide.html#flows>`__ to process tweets in realtime
 * Use a Flowlet from `cdap-pack-twitter <https://github.com/caskdata/cdap-packs>`__ library that uses 
-`Twitter4j <http://twitter4j.org/>`__ library to connect Flow and Twitter stream
+  `Twitter4j <http://twitter4j.org/>`__ library to connect Flow and Twitter stream
 * Use a `Dataset <http://docs.cask.co/cdap/current/en/dev-guide.html#datasets>`_ to persist analysis results
 * Build a `Service <http://docs.cask.co/cdap/current/en/dev-guide.html#services>`_ to serve analysis results via REST
 
