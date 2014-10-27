@@ -222,4 +222,4 @@ or implied. See the License for the specific language governing permissions and 
 the License. 
 
 .. _CDAP: http://cdap.io
-.. |(AppDesign)| image:: docs/images/app-design.png
+.. |(AppDesign)| image:: docs/img/app-design.png
