@@ -24,13 +24,14 @@ import co.cask.cdap.api.dataset.lib.KeyValueTable;
  */
 public class TwitterAnalysisApp extends AbstractApplication {
   static final String NAME = "TwitterAnalysis";
-  static final String TABLE_NAME = "TotalCounts";
+  static final String TABLE_NAME = "tweetStats";
+  static final String SERVICE_NAME = "TweetStats";
 
   @Override
   public void configure() {
     setName(NAME);
     createDataset(TABLE_NAME, KeyValueTable.class);
     addFlow(new AnalysisFlow());
-    addProcedure(new StatsProcedure());
+    addService(SERVICE_NAME, new TweetStatsHandler());
   }
 }

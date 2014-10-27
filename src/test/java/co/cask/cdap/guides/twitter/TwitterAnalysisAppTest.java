@@ -15,13 +15,17 @@
  */
 package co.cask.cdap.guides.twitter;
 
+import co.cask.cdap.common.http.HttpRequest;
+import co.cask.cdap.common.http.HttpRequests;
+import co.cask.cdap.common.http.HttpResponse;
 import co.cask.cdap.packs.twitter.Tweet;
 import co.cask.cdap.packs.twitter.TweetCollectorFlowlet;
 import co.cask.cdap.packs.twitter.TweetCollectorTestUtil;
 import co.cask.cdap.test.ApplicationManager;
-import co.cask.cdap.test.ProcedureManager;
+import co.cask.cdap.test.FlowManager;
 import co.cask.cdap.test.RuntimeMetrics;
 import co.cask.cdap.test.RuntimeStats;
+import co.cask.cdap.test.ServiceManager;
 import co.cask.cdap.test.TestBase;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
@@ -29,7 +33,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.File;
-import java.util.Collections;
+import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -38,7 +42,7 @@ import java.util.concurrent.TimeUnit;
 public class TwitterAnalysisAppTest extends TestBase {
 
   @Test
-  public void testSentimentProcedure() throws Exception {
+  public void test() throws Exception {
     ApplicationManager appManager = deployApplication(TwitterAnalysisApp.class);
 
     File srcFile = TweetCollectorTestUtil.writeToTempFile(ImmutableList.of(
@@ -48,20 +52,34 @@ public class TwitterAnalysisAppTest extends TestBase {
     ).iterator());
 
     ApplicationManager applicationManager = deployApplication(TwitterAnalysisApp.class);
-    applicationManager.startFlow(AnalysisFlow.NAME,
-                                 ImmutableMap.of(TweetCollectorFlowlet.ARG_TWITTER4J_DISABLED, "true",
-                                                 TweetCollectorFlowlet.ARG_SOURCE_FILE, srcFile.getPath()));
+    FlowManager flowManager =
+      applicationManager.startFlow(AnalysisFlow.NAME,
+                                   ImmutableMap.of(TweetCollectorFlowlet.ARG_TWITTER4J_DISABLED, "true",
+                                                   TweetCollectorFlowlet.ARG_SOURCE_FILE, srcFile.getPath()));
 
-    RuntimeMetrics countMetrics = RuntimeStats.getFlowletMetrics(TwitterAnalysisApp.NAME,
-                                                                 AnalysisFlow.NAME,
-                                                                 "recordStats");
+    try {
 
-    countMetrics.waitForProcessed(3, 3, TimeUnit.SECONDS);
+      RuntimeMetrics countMetrics = RuntimeStats.getFlowletMetrics(TwitterAnalysisApp.NAME,
+                                                                   AnalysisFlow.NAME,
+                                                                   "recordStats");
+      countMetrics.waitForProcessed(3, 3, TimeUnit.SECONDS);
 
-    // Start procedure and verify
-    ProcedureManager procedureManager = appManager.startProcedure(StatsProcedure.class.getSimpleName());
-    String response = procedureManager.getClient().query("avgSize", Collections.<String, String>emptyMap());
+      // Start service and verify
+      ServiceManager serviceManager = appManager.startService(TwitterAnalysisApp.SERVICE_NAME);
+      try {
+        URL serviceUrl = serviceManager.getServiceURL();
 
-    Assert.assertEquals("6", response);
+        URL url = new URL(serviceUrl, "v1/avgSize");
+        HttpRequest request = HttpRequest.get(url).build();
+        HttpResponse response = HttpRequests.execute(request);
+        Assert.assertEquals(200, response.getResponseCode());
+        // 6 is the avg tweet size
+        Assert.assertEquals("6", response.getResponseBodyAsString());
+      } finally {
+        serviceManager.stop();
+      }
+    } finally {
+      flowManager.stop();
+    }
   }
 }

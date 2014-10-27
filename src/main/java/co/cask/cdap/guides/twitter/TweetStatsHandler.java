@@ -16,27 +16,30 @@
 
 package co.cask.cdap.guides.twitter;
 
-import co.cask.cdap.api.annotation.Handle;
 import co.cask.cdap.api.annotation.UseDataSet;
 import co.cask.cdap.api.common.Bytes;
 import co.cask.cdap.api.dataset.lib.KeyValueTable;
-import co.cask.cdap.api.procedure.AbstractProcedure;
-import co.cask.cdap.api.procedure.ProcedureRequest;
-import co.cask.cdap.api.procedure.ProcedureResponder;
-import co.cask.cdap.api.procedure.ProcedureResponse;
+import co.cask.cdap.api.service.http.AbstractHttpServiceHandler;
+import co.cask.cdap.api.service.http.HttpServiceRequest;
+import co.cask.cdap.api.service.http.HttpServiceResponder;
+
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
 
 /**
- * Procedure that returns the aggregates timeseries sentiment data.
+ * Service to access tweets stats.
  */
-public class StatsProcedure extends AbstractProcedure {
+@Path("/v1")
+public class TweetStatsHandler extends AbstractHttpServiceHandler {
 
   @UseDataSet(TwitterAnalysisApp.TABLE_NAME)
   private KeyValueTable statsTable;
 
-  @Handle("avgSize")
-  public void sentimentAggregates(ProcedureRequest request, ProcedureResponder response) throws Exception {
+  @Path("avgSize")
+  @GET
+  public void sentimentAggregates(HttpServiceRequest request, HttpServiceResponder responder) throws Exception {
     long totalCount = statsTable.incrementAndGet(Bytes.toBytes("totalCount"), 0);
     long totalSize = statsTable.incrementAndGet(Bytes.toBytes("totalSize"), 0);
-    response.sendJson(ProcedureResponse.Code.SUCCESS, totalCount > 0 ? totalSize / totalCount : 0);
+    responder.sendJson(totalCount > 0 ? totalSize / totalCount : 0);
   }
 }
