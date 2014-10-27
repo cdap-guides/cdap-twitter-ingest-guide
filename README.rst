@@ -48,7 +48,50 @@ Flow consists of two processing nodes called Flowlets:
 Application Implementation
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+The recommended way to build a CDAP application from scratch is to use Maven project. 
+Use the following directory structure (you’ll find contents of the files below):
 
+.. code:: console
+
+  <app_dir>/pom.xml
+  <app_dir>/src/main/java/co/cask/cdap/guides/twitter/TwitterAnalysisApp.java
+  <app_dir>/src/main/java/co/cask/cdap/guides/twitter/AnalysisFlow.java
+  <app_dir>/src/main/java/co/cask/cdap/guides/twitter/StatsRecorderFlowlet.java
+  <app_dir>/src/main/java/co/cask/cdap/guides/twitter/TweetStatsHandler.java
+  <app_dir>/src/main/resources/twitter4j.properties
+
+The application will use cdap-packs-twitter library which includes an implementation of TweetCollectorFlowlet. 
+You'll need to add this library as a dependency to your project's pom.xml:
+
+.. code:: xml
+
+  ...
+  <dependencies>
+    ...
+    <dependency>
+      <groupId>co.cask.cdap.packs</groupId>
+      <artifactId>cdap-twitter-pack</artifactId>
+      <version>0.1.0</version>
+    </dependency>
+  </dependencies>
+
+Create TwitterAnalysisApp class which declares that application has a Flow, Service, and uses a Dataset:
+
+.. code:: java
+
+public class TwitterAnalysisApp extends AbstractApplication {
+  static final String NAME = "TwitterAnalysis";
+  static final String TABLE_NAME = "tweetStats";
+  static final String SERVICE_NAME = "TweetStats";
+
+  @Override
+  public void configure() {
+    setName(NAME);
+    createDataset(TABLE_NAME, KeyValueTable.class);
+    addFlow(new AnalysisFlow());
+    addService(SERVICE_NAME, new TweetStatsHandler());
+  }
+}
 
 License
 =======
