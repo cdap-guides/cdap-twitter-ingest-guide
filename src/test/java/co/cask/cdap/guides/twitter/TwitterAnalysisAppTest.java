@@ -53,14 +53,14 @@ public class TwitterAnalysisAppTest extends TestBase {
 
     ApplicationManager applicationManager = deployApplication(TwitterAnalysisApp.class);
     FlowManager flowManager =
-      applicationManager.startFlow(AnalysisFlow.NAME,
+      applicationManager.startFlow(TweetAnalysisFlow.NAME,
                                    ImmutableMap.of(TweetCollectorFlowlet.ARG_TWITTER4J_DISABLED, "true",
                                                    TweetCollectorFlowlet.ARG_SOURCE_FILE, srcFile.getPath()));
 
     try {
 
       RuntimeMetrics countMetrics = RuntimeStats.getFlowletMetrics(TwitterAnalysisApp.NAME,
-                                                                   AnalysisFlow.NAME,
+                                                                   TweetAnalysisFlow.NAME,
                                                                    "recordStats");
       countMetrics.waitForProcessed(3, 3, TimeUnit.SECONDS);
 

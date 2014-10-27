@@ -16,38 +16,23 @@
 
 package co.cask.cdap.guides.twitter;
 
-import co.cask.cdap.api.ResourceSpecification;
-import co.cask.cdap.api.annotation.Batch;
 import co.cask.cdap.api.annotation.ProcessInput;
 import co.cask.cdap.api.annotation.UseDataSet;
 import co.cask.cdap.api.common.Bytes;
 import co.cask.cdap.api.dataset.lib.KeyValueTable;
 import co.cask.cdap.api.flow.flowlet.AbstractFlowlet;
-import co.cask.cdap.api.flow.flowlet.FlowletSpecification;
 import co.cask.cdap.packs.twitter.Tweet;
 
 /**
  * Updates the timeseries table with sentiments received.
  */
 public class StatsRecorderFlowlet extends AbstractFlowlet {
-  static final String NAME = "StatsRecorder";
-
   @UseDataSet(TwitterAnalysisApp.TABLE_NAME)
   private KeyValueTable statsTable;
 
-  @Batch(10)
   @ProcessInput
   public void process(Tweet tweet) {
     statsTable.increment(Bytes.toBytes("totalCount"), 1);
     statsTable.increment(Bytes.toBytes("totalSize"), tweet.getText().length());
-  }
-
-  @Override
-  public FlowletSpecification configure() {
-    return FlowletSpecification.Builder.with()
-      .setName(NAME)
-      .setDescription("Updates the sentiment counts")
-      .withResources(ResourceSpecification.BASIC)
-      .build();
   }
 }

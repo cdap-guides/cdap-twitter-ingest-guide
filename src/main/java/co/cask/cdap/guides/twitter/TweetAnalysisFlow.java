@@ -22,8 +22,8 @@ import co.cask.cdap.packs.twitter.TweetCollectorFlowlet;
 /**
  * Flow for sentiment analysis.
  */
-public class AnalysisFlow implements Flow {
-  static final String NAME = "AnalysisFlow";
+public class TweetAnalysisFlow implements Flow {
+  static final String NAME = "TweetAnalysisFlow";
   @Override
   public FlowSpecification configure() {
     return FlowSpecification.Builder.with()
@@ -36,5 +36,4 @@ public class AnalysisFlow implements Flow {
         .from("collect").to("recordStats")
       .build();
   }
-
 }
