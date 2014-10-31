@@ -81,7 +81,7 @@ Create the ``TwitterAnalysisApp`` class which declares that application has a Fl
   public class TwitterAnalysisApp extends AbstractApplication {
     static final String NAME = "TwitterAnalysis";
     static final String TABLE_NAME = "tweetStats";
-    static final String SERVICE_NAME = "TweetStatsHandler";
+    static final String SERVICE_NAME = "TweetStatsService";
   
     @Override
     public void configure() {
