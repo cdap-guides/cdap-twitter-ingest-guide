@@ -87,7 +87,7 @@ Create the ``TwitterAnalysisApp`` class which declares that application has a Fl
     public void configure() {
       setName(NAME);
       createDataset(TABLE_NAME, KeyValueTable.class);
-      addFlow(new AnalysisFlow());
+      addFlow(new TweetAnalysisFlow());
       addService(SERVICE_NAME, new TweetStatsHandler());
     }
   }
