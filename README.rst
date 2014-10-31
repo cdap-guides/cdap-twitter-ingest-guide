@@ -1,7 +1,7 @@
-Consuming Twitter Data in Real-time
+Consuming Twitter Data in Realtime
 ===================================
 
-Consuming a live tweets stream in real-time is one of the common tasks of big data applications that power the social
+Consuming a live tweets stream in realtime is one of the common tasks of big data applications that power the social
 analytics. In this guide, you will learn how to accomplish it with Cask Data Application Platform (CDAP_).
 
 What You Will Build
