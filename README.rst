@@ -11,11 +11,9 @@ You will build a CDAP application that consumes data from the public Twitter fee
 You will:
 
 * Build a a realtime `Flow <http://docs.cask.co/cdap/current/en/dev-guide.html#flows>`__ to process tweets in realtime
-* Use a Flowlet from `cdap-pack-twitter <https://github.com/caskdata/cdap-packs>`__ library that uses 
-`Twitter4j <http://twitter4j.org/>`__ library to connect the Flow and Twitter stream
+* Use a Flowlet from `cdap-pack-twitter <https://github.com/caskdata/cdap-packs>`__ library that uses `Twitter4j <http://twitter4j.org/>`__ library to connect the Flow and Twitter stream
 * Use a `Dataset <http://docs.cask.co/cdap/current/en/dev-guide.html#datasets>`_ to persist the results of analysis
-* Build a `Service <http://docs.cask.co/cdap/current/en/dev-guide.html#services>`_ to serve the analysis results via
-  a RESTful endpoint
+* Build a `Service <http://docs.cask.co/cdap/current/en/dev-guide.html#services>`_ to serve the analysis results via a RESTful endpoint
 
 What You Will Need
 ------------------
