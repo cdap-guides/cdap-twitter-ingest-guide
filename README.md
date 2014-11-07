@@ -95,13 +95,13 @@ has a Flow, a Service, and creates a Dataset:
 public class TwitterAnalysisApp extends AbstractApplication {
   static final String NAME = "TwitterAnalysis";
   static final String TABLE_NAME = "tweetStats";
-  static final String SERVICE_NAME = "TweetStats";
+  static final String SERVICE_NAME = "TweetStatsService";
 
   @Override
   public void configure() {
     setName(NAME);
     createDataset(TABLE_NAME, KeyValueTable.class);
-    addFlow(new AnalysisFlow());
+    addFlow(new TweetAnalysisFlow());
     addService(SERVICE_NAME, new TweetStatsHandler());
   }
 }
