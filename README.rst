@@ -1,7 +1,7 @@
-Consuming Twitter Data in Real-time
+Consuming Twitter Data in Realtime
 ===================================
 
-Consuming a live tweets stream in real-time is one of the common tasks of big data applications that power the social
+Consuming a live tweets stream in realtime is one of the common tasks of big data applications that power the social
 analytics. In this guide, you will learn how to accomplish it with Cask Data Application Platform (CDAP_).
 
 What You Will Build
@@ -11,11 +11,9 @@ You will build a CDAP application that consumes data from the public Twitter fee
 You will:
 
 * Build a a realtime `Flow <http://docs.cask.co/cdap/current/en/dev-guide.html#flows>`__ to process tweets in realtime
-* Use a Flowlet from `cdap-pack-twitter <https://github.com/caskdata/cdap-packs>`__ library that uses 
-`Twitter4j <http://twitter4j.org/>`__ library to connect the Flow and Twitter stream
+* Use a Flowlet from `cdap-pack-twitter <https://github.com/caskdata/cdap-packs>`__ library that uses `Twitter4j <http://twitter4j.org/>`__ library to connect the Flow and Twitter stream
 * Use a `Dataset <http://docs.cask.co/cdap/current/en/dev-guide.html#datasets>`_ to persist the results of analysis
-* Build a `Service <http://docs.cask.co/cdap/current/en/dev-guide.html#services>`_ to serve the analysis results via
-  a RESTful endpoint
+* Build a `Service <http://docs.cask.co/cdap/current/en/dev-guide.html#services>`_ to serve the analysis results via a RESTful endpoint
 
 What You Will Need
 ------------------
@@ -83,13 +81,13 @@ Create the ``TwitterAnalysisApp`` class which declares that application has a Fl
   public class TwitterAnalysisApp extends AbstractApplication {
     static final String NAME = "TwitterAnalysis";
     static final String TABLE_NAME = "tweetStats";
-    static final String SERVICE_NAME = "TweetStats";
+    static final String SERVICE_NAME = "TweetStatsService";
   
     @Override
     public void configure() {
       setName(NAME);
       createDataset(TABLE_NAME, KeyValueTable.class);
-      addFlow(new AnalysisFlow());
+      addFlow(new TweetAnalysisFlow());
       addService(SERVICE_NAME, new TweetStatsHandler());
     }
   }
