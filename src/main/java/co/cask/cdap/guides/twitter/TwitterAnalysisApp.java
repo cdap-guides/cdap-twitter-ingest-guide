@@ -20,7 +20,7 @@ import co.cask.cdap.api.app.AbstractApplication;
 import co.cask.cdap.api.dataset.lib.KeyValueTable;
 
 /**
- * Application that consumes live tweets stream and computes the average size of a tweet.
+ * Application that consumes a live tweet stream and computes the average size of a tweet.
  */
 public class TwitterAnalysisApp extends AbstractApplication {
   static final String NAME = "TwitterAnalysis";
