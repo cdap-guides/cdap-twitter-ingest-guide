@@ -20,7 +20,7 @@ import co.cask.cdap.api.flow.FlowSpecification;
 import co.cask.cdap.packs.twitter.TweetCollectorFlowlet;
 
 /**
- * Flow for sentiment analysis.
+ * Flow for consuming tweets and persisting their count and size in a dataset.
  */
 public class TweetAnalysisFlow implements Flow {
   static final String NAME = "TweetAnalysisFlow";

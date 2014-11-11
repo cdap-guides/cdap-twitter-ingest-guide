@@ -24,7 +24,7 @@ import co.cask.cdap.api.flow.flowlet.AbstractFlowlet;
 import co.cask.cdap.packs.twitter.Tweet;
 
 /**
- * Updates the timeseries table with sentiments received.
+ * Increments the count and total size of tweets in a {@link KeyValueTable} dataset.
  */
 public class StatsRecorderFlowlet extends AbstractFlowlet {
   @UseDataSet(TwitterAnalysisApp.TABLE_NAME)
