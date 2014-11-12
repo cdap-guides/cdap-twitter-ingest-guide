@@ -20,7 +20,7 @@ import co.cask.cdap.api.app.AbstractApplication;
 import co.cask.cdap.api.dataset.lib.KeyValueTable;
 
 /**
- * Application that analyzes sentiment of sentences as positive, negative or neutral.
+ * Application that consumes a live tweet stream and computes the average size of a tweet.
  */
 public class TwitterAnalysisApp extends AbstractApplication {
   static final String NAME = "TwitterAnalysis";
