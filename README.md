@@ -13,16 +13,16 @@ You will build a CDAP application that consumes data from the public
 Twitter feed and computes the average tweet size. You will:
 
 - Build a a realtime 
-  [Flow](http://docs.cdap.io/cdap/current/en/developer-guide/building-blocks/flows-flowlets/flows.html)
+  [Flow](http://docs.cdap.io/cdap/current/en/developers-manual/building-blocks/flows-flowlets/flows.html)
   to process tweets in realtime;
 - Use a Flowlet from the [cdap-pack-twitter](https://github.com/caskdata/cdap-packs) library that
   uses the [Twitter4j](http://twitter4j.org/) library to connect the Flow and
   Twitter stream;
 - Use a 
-  [Dataset](http://docs.cdap.io/cdap/current/en/developer-guide/building-blocks/datasets/index.html)
+  [Dataset](http://docs.cdap.io/cdap/current/en/developers-manual/building-blocks/datasets/index.html)
   to persist the results of the analysis; and
 - Build a 
-  [Service](http://docs.cdap.io/cdap/current/en/developer-guide/building-blocks/services.html)
+  [Service](http://docs.cdap.io/cdap/current/en/developers-manual/building-blocks/services.html)
   to serve the analysis results via a RESTful endpoint.
 
 What You Will Need
@@ -30,7 +30,7 @@ What You Will Need
 
 - [JDK 6 or JDK 7](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
 - [Apache Maven 3.0+](http://maven.apache.org/)
-- [CDAP SDK](http://docs.cdap.io/cdap/current/en/developer-guide/getting-started/standalone/index.html)
+- [CDAP SDK](http://docs.cdap.io/cdap/current/en/developers-manual/getting-started/standalone/index.html)
 
 Let’s Build It!
 ---------------
