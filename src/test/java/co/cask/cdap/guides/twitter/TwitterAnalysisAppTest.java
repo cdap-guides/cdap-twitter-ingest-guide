@@ -15,9 +15,6 @@
  */
 package co.cask.cdap.guides.twitter;
 
-import co.cask.cdap.common.http.HttpRequest;
-import co.cask.cdap.common.http.HttpRequests;
-import co.cask.cdap.common.http.HttpResponse;
 import co.cask.cdap.packs.twitter.Tweet;
 import co.cask.cdap.packs.twitter.TweetCollectorFlowlet;
 import co.cask.cdap.packs.twitter.TweetCollectorTestUtil;
@@ -27,6 +24,9 @@ import co.cask.cdap.test.RuntimeMetrics;
 import co.cask.cdap.test.RuntimeStats;
 import co.cask.cdap.test.ServiceManager;
 import co.cask.cdap.test.TestBase;
+import co.cask.common.http.HttpRequest;
+import co.cask.common.http.HttpRequests;
+import co.cask.common.http.HttpResponse;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import org.junit.Assert;
