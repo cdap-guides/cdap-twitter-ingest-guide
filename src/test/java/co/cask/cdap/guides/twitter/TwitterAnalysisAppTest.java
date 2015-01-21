@@ -66,6 +66,7 @@ public class TwitterAnalysisAppTest extends TestBase {
 
       // Start service and verify
       ServiceManager serviceManager = appManager.startService(TwitterAnalysisApp.SERVICE_NAME);
+      serviceManager.waitForStatus(true);
       try {
         URL serviceUrl = serviceManager.getServiceURL();
 
@@ -77,6 +78,7 @@ public class TwitterAnalysisAppTest extends TestBase {
         Assert.assertEquals("6", response.getResponseBodyAsString());
       } finally {
         serviceManager.stop();
+        serviceManager.waitForStatus(false);
       }
     } finally {
       flowManager.stop();
