@@ -15,12 +15,12 @@
  */
 package co.cask.cdap.guides.twitter;
 
+import co.cask.cdap.api.metrics.RuntimeMetrics;
 import co.cask.cdap.packs.twitter.Tweet;
 import co.cask.cdap.packs.twitter.TweetCollectorFlowlet;
 import co.cask.cdap.packs.twitter.TweetCollectorTestUtil;
 import co.cask.cdap.test.ApplicationManager;
 import co.cask.cdap.test.FlowManager;
-import co.cask.cdap.test.RuntimeMetrics;
 import co.cask.cdap.test.RuntimeStats;
 import co.cask.cdap.test.ServiceManager;
 import co.cask.cdap.test.TestBase;
