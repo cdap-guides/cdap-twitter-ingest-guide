@@ -68,12 +68,12 @@ The recommended way to build a CDAP application from scratch is to use a
 Maven project. Use the following directory structure (you’ll find
 contents of these files described below)::
 
-    ./pom.xml
-    ./src/main/java/co/cask/cdap/guides/twitter/TwitterAnalysisApp.java
-    ./src/main/java/co/cask/cdap/guides/twitter/TweetAnalysisFlow.java
-    ./src/main/java/co/cask/cdap/guides/twitter/StatsRecorderFlowlet.java
-    ./src/main/java/co/cask/cdap/guides/twitter/TweetStatsHandler.java
-    ./src/main/resources/twitter4j.properties
+  ./pom.xml
+  ./src/main/java/co/cask/cdap/guides/twitter/TwitterAnalysisApp.java
+  ./src/main/java/co/cask/cdap/guides/twitter/TweetAnalysisFlow.java
+  ./src/main/java/co/cask/cdap/guides/twitter/StatsRecorderFlowlet.java
+  ./src/main/java/co/cask/cdap/guides/twitter/TweetStatsHandler.java
+  ./src/main/resources/twitter4j.properties
 
 The application will use the ``cdap-packs-twitter`` library which includes an
 implementation of ``TweetCollectorFlowlet``. You'll need to add this
@@ -194,29 +194,33 @@ Build and Run Application
 
 The TwitterAnalysisApp application can be built and packaged using the Apache Maven command::
 
-    mvn clean package
+  $ mvn clean package
 
 Note that the remaining commands assume that the ``cdap-cli.sh`` script is
 available on your PATH. If this is not the case, please add it::
 
-    export PATH=$PATH:<CDAP home>/bin
+  $ export PATH=$PATH:<CDAP home>/bin
 
 If you haven't already started a standalone CDAP installation, start it with the command::
 
-    cdap.sh start
+  $ cdap.sh start
 
 We can then deploy the application to a standalone CDAP installation and
 start its components::
 
-    cdap-cli.sh deploy app target/cdap-twitter-ingest-guide-1.0.0.jar
-    cdap-cli.sh start flow TwitterAnalysis.TweetAnalysisFlow
-    cdap-cli.sh start service TwitterAnalysis.TweetStatsService
+  $ cdap-cli.sh deploy app target/cdap-twitter-ingest-guide-<version>.jar
+  $ cdap-cli.sh start flow TwitterAnalysis.TweetAnalysisFlow
+  $ cdap-cli.sh start service TwitterAnalysis.TweetStatsService
 
 Once Flow is started, tweets are pulled and processed. You can query for
 the average tweet size::
 
-    curl http://localhost:10000/v2/apps/TwitterAnalysis/services/TweetStatsService/methods/v1/avgSize
+  $ curl -w'\n' http://localhost:10000/v3/namespaces/default/apps/TwitterAnalysis/services/TweetStatsService/methods/v1/avgSize
 
+or using the CDAP CLI:
+
+  $ cdap-cli.sh call service TwitterAnalysis.TweetStatsService GET 'v1/avgSize' 
+  
 Example output::
 
     132
