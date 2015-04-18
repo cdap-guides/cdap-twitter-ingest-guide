@@ -217,7 +217,7 @@ the average tweet size::
 
   $ curl -w'\n' http://localhost:10000/v3/namespaces/default/apps/TwitterAnalysis/services/TweetStatsService/methods/v1/avgSize
 
-or using the CDAP CLI:
+or using the CDAP CLI::
 
   $ cdap-cli.sh call service TwitterAnalysis.TweetStatsService GET 'v1/avgSize' 
   
