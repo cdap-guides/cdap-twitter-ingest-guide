@@ -1,8 +1,8 @@
-==================================
-Consuming Twitter Data in Realtime
-==================================
+===================================
+Consuming Twitter Data in Real Time
+===================================
 
-Consuming a live tweets stream in realtime is one of the common tasks
+Consuming a live tweets stream in real time is one of the common tasks
 of big data applications that power the social analytics. In this guide,
 you will learn how to accomplish it with the Cask Data Application Platform
 (`CDAP <http://cdap.io>`__).
@@ -13,9 +13,9 @@ What You Will Build
 You will build a CDAP application that consumes data from the public
 Twitter feed and computes the average tweet size. You will:
 
-- Build a a realtime 
+- Build a real time 
   `Flow <http://docs.cdap.io/cdap/current/en/developers-manual/building-blocks/flows-flowlets/flows.html>`__
-  to process tweets in realtime;
+  to process tweets in real time;
 - Use a Flowlet from the `cdap-pack-twitter <https://github.com/caskdata/cdap-packs>`__ library that
   uses the `Twitter4j <http://twitter4j.org/>`__ library to connect the Flow and
   Twitter stream;
@@ -44,7 +44,7 @@ the `Configuring TweetCollectorFlowlet <#configuring-tweetcollectorflowlet>`__ s
 
 Application Design
 ------------------
-Realtime processing capability within CDAP is supported by a Flow. The
+Real time processing capability within CDAP is supported by a Flow. The
 application we are building in this guide uses a Flow for processing the
 tweets consumed from Twitter feed. The processing results are persisted
 in a Dataset and are made available via RESTful endpoint using a
