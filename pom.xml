@@ -28,7 +28,7 @@
 
   <properties>
     <app.main.class>co.cask.cdap.guides.twitter.TwitterAnalysisApp</app.main.class>
-    <cdap.version>3.0.0</cdap.version>
+    <cdap.version>3.2.0-SNAPSHOT</cdap.version>
     <cdap-twitter-pack.version>0.1.1</cdap-twitter-pack.version>
     <guava.version>13.0.1</guava.version>
     <slf4j.version>1.7.5</slf4j.version>
