@@ -208,7 +208,8 @@ If you haven't already started a standalone CDAP installation, start it with the
 We can then deploy the application to a standalone CDAP installation and
 start its components::
 
-  $ cdap-cli.sh deploy app target/cdap-twitter-ingest-guide-<version>.jar
+  $ cdap-cli.sh load artifact target/cdap-twitter-ingest-guide-<version>.jar
+  $ cdap-cli.sh create app TwitterAnalysis cdap-twitter-ingest-guide <version> user
   $ cdap-cli.sh start flow TwitterAnalysis.TweetAnalysisFlow
   $ cdap-cli.sh start service TwitterAnalysis.TweetStatsService
 
