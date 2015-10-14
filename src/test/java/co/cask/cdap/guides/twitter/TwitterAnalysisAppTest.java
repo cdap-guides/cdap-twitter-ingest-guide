@@ -21,7 +21,6 @@ import co.cask.cdap.packs.twitter.TweetCollectorFlowlet;
 import co.cask.cdap.packs.twitter.TweetCollectorTestUtil;
 import co.cask.cdap.test.ApplicationManager;
 import co.cask.cdap.test.FlowManager;
-import co.cask.cdap.test.RuntimeStats;
 import co.cask.cdap.test.ServiceManager;
 import co.cask.cdap.test.TestBase;
 import co.cask.common.http.HttpRequest;
@@ -52,20 +51,17 @@ public class TwitterAnalysisAppTest extends TestBase {
     ).iterator());
 
     ApplicationManager applicationManager = deployApplication(TwitterAnalysisApp.class);
-    FlowManager flowManager =
-      applicationManager.startFlow(TweetAnalysisFlow.NAME,
-                                   ImmutableMap.of(TweetCollectorFlowlet.ARG_TWITTER4J_DISABLED, "true",
-                                                   TweetCollectorFlowlet.ARG_SOURCE_FILE, srcFile.getPath()));
+    FlowManager flowManager = applicationManager.getFlowManager(TweetAnalysisFlow.NAME).start(
+      ImmutableMap.of(TweetCollectorFlowlet.ARG_TWITTER4J_DISABLED, "true",
+                      TweetCollectorFlowlet.ARG_SOURCE_FILE, srcFile.getPath()));
 
     try {
 
-      RuntimeMetrics countMetrics = RuntimeStats.getFlowletMetrics(TwitterAnalysisApp.NAME,
-                                                                   TweetAnalysisFlow.NAME,
-                                                                   "recordStats");
+      RuntimeMetrics countMetrics = flowManager.getFlowletMetrics("recordStats");
       countMetrics.waitForProcessed(3, 3, TimeUnit.SECONDS);
 
       // Start service and verify
-      ServiceManager serviceManager = appManager.startService(TwitterAnalysisApp.SERVICE_NAME);
+      ServiceManager serviceManager = appManager.getServiceManager(TwitterAnalysisApp.SERVICE_NAME).start();
       serviceManager.waitForStatus(true);
       try {
         URL serviceUrl = serviceManager.getServiceURL();
