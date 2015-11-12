@@ -115,19 +115,15 @@ available in the ``cdap-packs-twitter`` library:
 
 .. code:: java
 
-  public class TweetAnalysisFlow implements Flow {
+  public class TweetAnalysisFlow extends AbstractFlow {
     static final String NAME = "TweetAnalysisFlow";
     @Override
-    public FlowSpecification configure() {
-      return FlowSpecification.Builder.with()
-        .setName(NAME)
-        .setDescription("Collects simple tweet stats")
-        .withFlowlets()
-          .add("collect", new TweetCollectorFlowlet())
-          .add("recordStats", new StatsRecorderFlowlet())
-        .connect()
-          .from("collect").to("recordStats")
-        .build();
+    public void configure() {
+      setName(NAME);
+      setDescription("Collects simple tweet stats");
+      addFlowlet("collect", new TweetCollectorFlowlet());
+      addFlowlet("recordStats", new StatsRecorderFlowlet());
+      connect("collect", "recordStats");
     }
   }
 
