@@ -15,25 +15,20 @@
  */
 package co.cask.cdap.guides.twitter;
 
-import co.cask.cdap.api.flow.Flow;
-import co.cask.cdap.api.flow.FlowSpecification;
+import co.cask.cdap.api.flow.AbstractFlow;
 import co.cask.cdap.packs.twitter.TweetCollectorFlowlet;
 
 /**
  * Flow for consuming tweets and persisting their count and size in a dataset.
  */
-public class TweetAnalysisFlow implements Flow {
+public class TweetAnalysisFlow extends AbstractFlow {
   static final String NAME = "TweetAnalysisFlow";
   @Override
-  public FlowSpecification configure() {
-    return FlowSpecification.Builder.with()
-      .setName(NAME)
-      .setDescription("Collects simple tweet stats")
-      .withFlowlets()
-        .add("collect", new TweetCollectorFlowlet())
-        .add("recordStats", new StatsRecorderFlowlet())
-      .connect()
-        .from("collect").to("recordStats")
-      .build();
+  public void configure() {
+    setName(NAME);
+    setDescription("Collects simple tweet stats");
+    addFlowlet("collect", new TweetCollectorFlowlet());
+    addFlowlet("recordStats", new StatsRecorderFlowlet());
+    connect("collect", "recordStats");
   }
 }
