@@ -192,22 +192,22 @@ The TwitterAnalysisApp application can be built and packaged using the Apache Ma
 
   $ mvn clean package
 
-Note that the remaining commands assume that the ``cdap-cli.sh`` script is
+Note that the remaining commands assume that the ``cdap`` script is
 available on your PATH. If this is not the case, please add it::
 
   $ export PATH=$PATH:<CDAP home>/bin
 
 If you haven't already started a standalone CDAP installation, start it with the command::
 
-  $ cdap.sh start
+  $ cdap sdk start
 
 We can then deploy the application to a standalone CDAP installation and
 start its components::
 
-  $ cdap-cli.sh load artifact target/cdap-twitter-ingest-guide-<version>.jar
-  $ cdap-cli.sh create app TwitterAnalysis cdap-twitter-ingest-guide <version> user
-  $ cdap-cli.sh start flow TwitterAnalysis.TweetAnalysisFlow
-  $ cdap-cli.sh start service TwitterAnalysis.TweetStatsService
+  $ cdap cli load artifact target/cdap-twitter-ingest-guide-<version>.jar
+  $ cdap cli create app TwitterAnalysis cdap-twitter-ingest-guide <version> user
+  $ cdap cli start flow TwitterAnalysis.TweetAnalysisFlow
+  $ cdap cli start service TwitterAnalysis.TweetStatsService
 
 Once Flow is started, tweets are pulled and processed. You can query for
 the average tweet size::
@@ -216,7 +216,7 @@ the average tweet size::
 
 or using the CDAP CLI::
 
-  $ cdap-cli.sh call service TwitterAnalysis.TweetStatsService GET 'v1/avgSize' 
+  $ cdap cli call service TwitterAnalysis.TweetStatsService GET 'v1/avgSize' 
   
 Example output::
 
@@ -235,7 +235,7 @@ Have a question? Discuss at the `CDAP User Mailing List <https://groups.google.c
 License
 =======
 
-Copyright © 2014-2015 Cask Data, Inc.
+Copyright © 2014-2017 Cask Data, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may
 not use this file except in compliance with the License. You may obtain
