@@ -212,7 +212,7 @@ start its components::
 Once Flow is started, tweets are pulled and processed. You can query for
 the average tweet size::
 
-  $ curl -w'\n' http://localhost:10000/v3/namespaces/default/apps/TwitterAnalysis/services/TweetStatsService/methods/v1/avgSize
+  $ curl -w'\n' http://localhost:11015/v3/namespaces/default/apps/TwitterAnalysis/services/TweetStatsService/methods/v1/avgSize
 
 or using the CDAP CLI::
 
