@@ -5,7 +5,7 @@ Consuming Twitter Data in Real Time
 Consuming a live tweets stream in real time is one of the common tasks
 of big data applications that power the social analytics. In this guide,
 you will learn how to accomplish it with the Cask Data Application Platform
-(`CDAP <http://cdap.io>`__).
+(`CDAP <https://cask.co>`__).
 
 What You Will Build
 ===================
@@ -13,17 +13,17 @@ What You Will Build
 You will build a CDAP application that consumes data from the public
 Twitter feed and computes the average tweet size. You will:
 
-- Build a real-time 
-  `Flow <http://docs.cdap.io/cdap/current/en/developers-manual/building-blocks/flows-flowlets/flows.html>`__
+- Build a real-time
+  `Flow <https://docs.cask.co/cdap/current/en/developers-manual/building-blocks/flows-flowlets/flows.html>`__
   to process tweets in real time;
 - Use a Flowlet from the `cdap-pack-twitter <https://github.com/caskdata/cdap-packs>`__ library that
   uses the `Twitter4j <http://twitter4j.org/>`__ library to connect the Flow and
   Twitter stream;
-- Use a 
-  `Dataset <http://docs.cdap.io/cdap/current/en/developers-manual/building-blocks/datasets/index.html>`__
+- Use a
+  `Dataset <https://docs.cask.co/cdap/current/en/developers-manual/building-blocks/datasets/index.html>`__
   to persist the results of the analysis; and
-- Build a 
-  `Service <http://docs.cdap.io/cdap/current/en/developers-manual/building-blocks/services.html>`__
+- Build a
+  `Service <https://docs.cask.co/cdap/current/en/developers-manual/building-blocks/services.html>`__
   to serve the analysis results via a RESTful endpoint.
 
 What You Will Need
@@ -31,7 +31,7 @@ What You Will Need
 
 - `JDK 7 or 8 <http://www.oracle.com/technetwork/java/javase/downloads/index.html>`__
 - `Apache Maven 3.1+ <http://maven.apache.org/>`__
-- `CDAP SDK <http://docs.cdap.io/cdap/current/en/developers-manual/getting-started/standalone/index.html>`__
+- `CDAP Local Sandbox <https://docs.cask.co/cdap/current/en/developers-manual/getting-started/local-sandbox/index.html>`__
 
 Let’s Build It!
 ===============
@@ -192,32 +192,32 @@ The TwitterAnalysisApp application can be built and packaged using the Apache Ma
 
   $ mvn clean package
 
-Note that the remaining commands assume that the ``cdap-cli.sh`` script is
+Note that the remaining commands assume that the ``cdap`` script is
 available on your PATH. If this is not the case, please add it::
 
   $ export PATH=$PATH:<CDAP home>/bin
 
-If you haven't already started a standalone CDAP installation, start it with the command::
+If you haven't already started a CDAP Local Sandbox installation, start it with the command::
 
-  $ cdap.sh start
+  $ cdap sandbox start
 
-We can then deploy the application to a standalone CDAP installation and
+We can then deploy the application to a CDAP Local Sandbox installation and
 start its components::
 
-  $ cdap-cli.sh load artifact target/cdap-twitter-ingest-guide-<version>.jar
-  $ cdap-cli.sh create app TwitterAnalysis cdap-twitter-ingest-guide <version> user
-  $ cdap-cli.sh start flow TwitterAnalysis.TweetAnalysisFlow
-  $ cdap-cli.sh start service TwitterAnalysis.TweetStatsService
+  $ cdap cli load artifact target/cdap-twitter-ingest-guide-<version>.jar
+  $ cdap cli create app TwitterAnalysis cdap-twitter-ingest-guide <version> user
+  $ cdap cli start flow TwitterAnalysis.TweetAnalysisFlow
+  $ cdap cli start service TwitterAnalysis.TweetStatsService
 
 Once Flow is started, tweets are pulled and processed. You can query for
 the average tweet size::
 
-  $ curl -w'\n' http://localhost:10000/v3/namespaces/default/apps/TwitterAnalysis/services/TweetStatsService/methods/v1/avgSize
+  $ curl -w'\n' http://localhost:11015/v3/namespaces/default/apps/TwitterAnalysis/services/TweetStatsService/methods/v1/avgSize
 
 or using the CDAP CLI::
 
-  $ cdap-cli.sh call service TwitterAnalysis.TweetStatsService GET 'v1/avgSize' 
-  
+  $ cdap cli call service TwitterAnalysis.TweetStatsService GET 'v1/avgSize'
+
 Example output::
 
     132
@@ -235,7 +235,7 @@ Have a question? Discuss at the `CDAP User Mailing List <https://groups.google.c
 License
 =======
 
-Copyright © 2014-2015 Cask Data, Inc.
+Copyright © 2014-2017 Cask Data, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may
 not use this file except in compliance with the License. You may obtain
